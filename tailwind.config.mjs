@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-    content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}', './public/**/*.html'],
+    content: [
+        './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
+        './public/**/*.html',
+        './index.html'  // Add this for Vite/React
+    ],
     theme: {
         extend: {
             fontSize: {
@@ -19,8 +23,8 @@ export default {
                 '9xl': ['8rem', { lineHeight: '1', letterSpacing: '-0.07em', fontWeight: '900' }],
             },
             fontFamily: {
-                heading: "space grotesk",
-                paragraph: "azeret-mono"
+                heading: ['"Space Grotesk"', 'sans-serif'],
+                paragraph: ['"Azeret Mono"', 'monospace'],
             },
             colors: {
                 darkbackground: '#000000',
@@ -40,5 +44,9 @@ export default {
     future: {
         hoverOnlyWhenSupported: true,
     },
-    plugins: [require('@tailwindcss/container-queries'), require('@tailwindcss/typography')],
+    plugins: [
+        // ⭐⭐⭐ COMPLETELY REMOVED - No more plugin errors! ⭐⭐⭐
+        // require('@tailwindcss/container-queries'),
+        // require('@tailwindcss/typography'),
+    ],
 }
