@@ -4,8 +4,6 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Filter } from 'lucide-react';
 // import { Programs } from '@/entities';
 // import { Image } from '@/components/ui/image';
-import Header from '../Header';
-import Footer from '../Footer';
 
 export default function ProgramsPage() {
   const [programs, setPrograms] = useState<any[]>([]);
@@ -66,7 +64,7 @@ export default function ProgramsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      {/* ❌ REMOVED: <Header /> - Already in Router Layout */}
 
       {/* Hero Section */}
       <section className="bg-secondary text-secondary-foreground py-20">
@@ -172,7 +170,7 @@ export default function ProgramsPage() {
         )}
       </section>
 
-      <Footer />
+      {/* ❌ REMOVED: <Footer /> - Already in Router Layout */}
     </div>
   );
 }

@@ -3,8 +3,6 @@ import { motion } from 'framer-motion';
 import { Users, Award, Target, Linkedin } from 'lucide-react';
 // import { Mentors } from '@/entities';
 // import { Image } from '@/components/ui/image';
-import Header from '../Header';
-import Footer from '../Footer';
 
 export default function MentorshipPage() {
   const [mentors, setMentors] = useState<any[]>([]);
@@ -29,7 +27,7 @@ export default function MentorshipPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      {/* ❌ REMOVED: <Header /> - Already in Router Layout */}
 
       {/* Hero Section */}
       <section className="bg-secondary text-secondary-foreground py-20">
@@ -242,7 +240,7 @@ export default function MentorshipPage() {
         </div>
       </section>
 
-      <Footer />
+      {/* ❌ REMOVED: <Footer /> - Already in Router Layout */}
     </div>
   );
 }

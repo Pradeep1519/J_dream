@@ -5,8 +5,6 @@ import { ArrowLeft, BookOpen, Users, Target, Zap, Award, Briefcase } from 'lucid
 // import { Programs } from '@/entities';
 // import { Image } from '@/components/ui/image';
 // import { LoadingSpinner } from '@/components/ui/loading-spinner';
-import Header from '../Header';
-import Footer from '../Footer';
 
 interface ProgramTier {
   _id: string;
@@ -59,7 +57,7 @@ export default function ProgramDetailPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      {/* ❌ REMOVED: <Header /> - Already in Router Layout */}
 
       <div className="max-w-[120rem] mx-auto px-6 lg:px-12 py-12" style={{ minHeight: '60vh' }}>
         {isLoading ? (
@@ -245,7 +243,7 @@ export default function ProgramDetailPage() {
         )}
       </div>
 
-      <Footer />
+      {/* ❌ REMOVED: <Footer /> - Already in Router Layout */}
     </div>
   );
 }

@@ -7,8 +7,6 @@ import { Handshake, Mail, Send } from 'lucide-react';
 // import { Input } from '@/components/ui/input';
 // import { Textarea } from '@/components/ui/textarea';
 // import { useToast } from '@/hooks/use-toast';
-import Header from '../Header';
-import Footer from '../Footer';
 
 export default function PartnershipsPage() {
   const [partnerships, setPartnerships] = useState<any[]>([]);
@@ -63,7 +61,7 @@ export default function PartnershipsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      {/* ❌ REMOVED: <Header /> - Already in Router Layout */}
 
       {/* Hero Section */}
       <section className="bg-secondary text-secondary-foreground py-20">
@@ -350,7 +348,7 @@ export default function PartnershipsPage() {
         </div>
       </section>
 
-      <Footer />
+      {/* ❌ REMOVED: <Footer /> - Already in Router Layout */}
     </div>
   );
 }

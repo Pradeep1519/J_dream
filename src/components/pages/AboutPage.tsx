@@ -3,8 +3,6 @@ import { motion } from 'framer-motion';
 import { TrendingUp, Users, Award, Linkedin } from 'lucide-react';
 import { LeadershipTeam, PerformanceMetrics } from '@/entities';
 // import { Image } from '@/components/ui/image'; // Comment out
-import Header from '../Header';
-import Footer from '../Footer';
 
 export default function AboutPage() {
   const [leadership, setLeadership] = useState<LeadershipTeam[]>([]);
@@ -45,7 +43,7 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      {/* ❌ REMOVED: <Header /> - Already in Router Layout */}
 
       {/* Hero Section */}
       <section className="bg-secondary text-secondary-foreground py-20">
@@ -304,7 +302,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Footer />
+      {/* ❌ REMOVED: <Footer /> - Already in Router Layout */}
     </div>
   );
 }

@@ -15,8 +15,6 @@ import {
   Layers
 } from 'lucide-react';
 import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue, useMotionTemplate } from 'framer-motion';
-import Header from '../Header';
-import Footer from '../Footer';
 
 // --- CANONICAL DATA SOURCES ---
 const PROGRAMS = [
@@ -597,7 +595,7 @@ const CTASection = () => {
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-background text-secondary selection:bg-primary selection:text-white overflow-x-hidden">
-      <Header />
+      {/* ❌ REMOVED: <Header /> - Already in Router Layout */}
       
       <main>
         <HeroSection />
@@ -609,7 +607,7 @@ export default function HomePage() {
         <CTASection />
       </main>
 
-      <Footer />
+      {/* ❌ REMOVED: <Footer /> - Already in Router Layout */}
     </div>
   );
 }
