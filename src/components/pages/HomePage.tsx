@@ -1,4 +1,4 @@
-// HPI 1.7-V
+// HPI 1.7-V - PREMIUM EDITION (ALL 10 OPTIONS)
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
@@ -12,9 +12,11 @@ import {
   ChevronRight, 
   Zap,
   Code,
-  Layers
+  Layers,
+  Sparkles,
+  Star
 } from 'lucide-react';
-import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue, useMotionTemplate } from 'framer-motion';
+import { motion, useScroll, useTransform, useInView, useMotionValue } from 'framer-motion';
 
 // --- CANONICAL DATA SOURCES ---
 const PROGRAMS = [
@@ -62,552 +64,645 @@ const FEATURES = [
   }
 ];
 
-// --- UTILITY COMPONENTS ---
-const SectionDivider = () => (
-  <div className="w-full flex items-center justify-center py-8 opacity-20">
-    <div className="h-px bg-secondary flex-1 max-w-[200px]" />
-    <div className="mx-4 text-xs font-paragraph text-secondary tracking-widest">///</div>
-    <div className="h-px bg-secondary flex-1 max-w-[200px]" />
-  </div>
+// --- PREMIUM UTILITY COMPONENTS ---
+
+// OPTION 3: Background Effects - Gold Particles
+const GoldParticles = () => {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {[...Array(20)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1 h-1 bg-[#B8860B] rounded-full opacity-20"
+          initial={{
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+          }}
+          animate={{
+            y: [null, -100],
+            opacity: [0, 0.5, 0],
+          }}
+          transition={{
+            duration: 10 + Math.random() * 10,
+            repeat: Infinity,
+            delay: Math.random() * 5,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+// OPTION 3: Background Effects - Noise Texture
+const NoiseTexture = () => (
+  <div 
+    className="absolute inset-0 opacity-5 pointer-events-none"
+    style={{
+      backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E")`,
+      backgroundRepeat: 'repeat',
+    }}
+  />
 );
 
-const GridBackground = ({ theme = 'light' }: { theme?: 'light' | 'dark' }) => (
-  <div className="absolute inset-0 pointer-events-none overflow-hidden">
-    <div 
-      className={`absolute inset-0 ${theme === 'dark' ? 'opacity-[0.03]' : 'opacity-[0.05]'}`}
-      style={{
-        backgroundImage: `linear-gradient(${theme === 'dark' ? '#ffffff' : '#000000'} 1px, transparent 1px), linear-gradient(90deg, ${theme === 'dark' ? '#ffffff' : '#000000'} 1px, transparent 1px)`,
-        backgroundSize: '40px 40px'
-      }}
-    />
-  </div>
-);
+// OPTION 2: Luxury Fonts CSS (add in global.css)
+/*
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+*/
 
-// --- SECTIONS ---
-const HeroSection = () => {
+// OPTION 9: Premium Header
+const PremiumHeader = () => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <motion.header 
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.8 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled 
+          ? 'bg-[#0A0A0A] border-b border-[#B8860B]/30 py-2' 
+          : 'bg-transparent py-4'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="flex items-center justify-between">
+          {/* Logo with gold glow */}
+          <Link to="/" className="relative group">
+            <span className="font-heading text-2xl font-black text-[#F5F5F5] tracking-wider">
+              {'{ Junior Dream }'}
+            </span>
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#B8860B] group-hover:w-full transition-all duration-300" />
+          </Link>
+
+          {/* Navigation with gold hover */}
+          <nav className="hidden lg:flex items-center gap-8">
+            {['Home', 'Programs', 'Mentorship', 'About', 'Partnerships'].map((item, i) => (
+              <Link
+                key={i}
+                to={`/${item.toLowerCase()}`}
+                className="relative group font-paragraph text-sm text-[#F5F5F5] hover:text-[#B8860B] transition-colors"
+              >
+                {item}
+                <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#B8860B] group-hover:w-full transition-all duration-300" />
+              </Link>
+            ))}
+            <Link
+              to="/partnerships#contact"
+              className="px-6 py-3 border border-[#B8860B] text-[#B8860B] hover:bg-[#B8860B] hover:text-[#0A0A0A] transition-all duration-300 font-paragraph text-sm"
+            >
+              {'=> Contact'}
+            </Link>
+          </nav>
+        </div>
+      </div>
+    </motion.header>
+  );
+};
+
+// OPTION 1 & 4: Premium Hero Section
+const PremiumHeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
-  
-  // Mouse parallax effect
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const { clientX, clientY } = e;
     const { innerWidth, innerHeight } = window;
-    mouseX.set((clientX / innerWidth) - 0.5);
-    mouseY.set((clientY / innerHeight) - 0.5);
+    setMousePosition({
+      x: (clientX / innerWidth - 0.5) * 20,
+      y: (clientY / innerHeight - 0.5) * 20,
+    });
   };
 
   return (
     <section 
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative w-full min-h-screen flex flex-col justify-center overflow-hidden bg-background text-secondary"
+      className="relative w-full min-h-screen flex items-center bg-gradient-to-br from-[#0A0A0A] via-[#1A1A1A] to-[#2A2A2A] overflow-hidden"
     >
-      {/* Content Layer */}
-      <div className="relative z-20 w-full max-w-[120rem] mx-auto px-6 lg:px-12 pt-32 pb-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
-        <div className="lg:col-span-7">
+      {/* OPTION 3: All background effects */}
+      <NoiseTexture />
+      <GoldParticles />
+
+      {/* OPTION 1: Gold accent lines */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div 
+          animate={{ x: mousePosition.x, y: mousePosition.y }}
+          className="absolute top-20 left-10 w-64 h-px bg-gradient-to-r from-transparent via-[#B8860B] to-transparent"
+        />
+        <motion.div 
+          animate={{ x: -mousePosition.x, y: -mousePosition.y }}
+          className="absolute bottom-20 right-10 w-96 h-px bg-gradient-to-r from-transparent via-[#B8860B] to-transparent"
+        />
+      </div>
+
+      {/* OPTION 4: Slow reveal animations */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 pt-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
           >
-            <div className="inline-flex items-center gap-2 mb-6 border border-secondary/20 px-4 py-2 rounded-full bg-background/50 backdrop-blur-sm">
-              <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-              <span className="font-paragraph text-xs uppercase tracking-widest">System Online • v2.5.0</span>
-            </div>
-            <h1 className="font-heading text-6xl lg:text-8xl font-bold leading-[0.9] tracking-tight mb-8 text-secondary">
-              INNOVATIVE<br />
-              EDUCATION<br />
-              SOLUTIONS
-            </h1>
-          </motion.div>
-        </div>
+            {/* OPTION 1: Gold status badge */}
+            <motion.div 
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="inline-flex items-center gap-3 mb-8 border border-[#B8860B]/30 px-4 py-2 rounded-full bg-[#0A0A0A]/50 backdrop-blur-sm"
+            >
+              <Sparkles className="w-4 h-4 text-[#B8860B]" />
+              <span className="font-paragraph text-xs uppercase tracking-[0.2em] text-[#F5F5F5]">
+                Premium Education • Since 2025
+              </span>
+            </motion.div>
 
-        <div className="lg:col-span-5 flex flex-col justify-end h-full">
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="bg-background/80 backdrop-blur-md border border-secondary/10 p-8"
-          >
-            <p className="font-paragraph text-sm lg:text-base text-secondary/80 mb-8 leading-relaxed">
-              Connecting Classes 6-12 students with professionals practicing their target careers. We eliminate educational uncertainty through expert mentorship and data-driven pathways.
+            {/* OPTION 2: Luxury typography */}
+            <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[1.1] tracking-tight mb-8">
+              <span className="text-[#F5F5F5]">INNOVATIVE</span><br />
+              <span className="text-[#F5F5F5]">EDUCATION</span><br />
+              <span className="text-[#B8860B]">SOLUTIONS</span>
+            </h1>
+
+            {/* OPTION 5: More breathing space */}
+            <p className="font-paragraph text-lg text-[#F5F5F5]/70 mb-12 max-w-xl leading-relaxed tracking-wide">
+              Connecting Classes 6-12 students with professionals practicing their target careers. We eliminate educational uncertainty through expert mentorship.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+
+            {/* OPTION 8: Micro-interactions */}
+            <div className="flex flex-col sm:flex-row gap-6">
               <Link 
                 to="/programs" 
-                className="group relative inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground font-paragraph text-sm overflow-hidden transition-all hover:bg-primary/90"
+                className="group relative px-8 py-4 bg-[#B8860B] text-[#0A0A0A] font-paragraph text-sm font-bold overflow-hidden"
               >
+                <motion.div 
+                  whileHover={{ scale: 1.2 }}
+                  className="absolute inset-0 bg-[#F5F5F5] opacity-0 group-hover:opacity-20 transition-opacity"
+                />
                 <span className="relative z-10 flex items-center gap-2">
-                  {'{ Explore_Programs }'} <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  {'{ Explore Programs }'} 
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                 </span>
               </Link>
+              
               <Link 
                 to="/partnerships#contact" 
-                className="group inline-flex items-center justify-center px-8 py-4 border border-secondary text-secondary font-paragraph text-sm hover:bg-secondary hover:text-secondary-foreground transition-all"
+                className="group px-8 py-4 border border-[#B8860B] text-[#B8860B] hover:bg-[#B8860B] hover:text-[#0A0A0A] transition-all duration-500 font-paragraph text-sm"
               >
                 <span className="flex items-center gap-2">
                   {'=> Get Started'}
+                  <Star className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </span>
               </Link>
+            </div>
+          </motion.div>
+
+          {/* OPTION 6: Premium card design */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.2, delay: 0.4 }}
+            className="relative"
+          >
+            <div className="absolute inset-0 bg-[#B8860B]/20 blur-3xl rounded-full" />
+            <div className="relative border border-[#B8860B]/30 bg-[#0A0A0A]/50 backdrop-blur-xl p-8 rounded-2xl">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-full border-2 border-[#B8860B] flex items-center justify-center">
+                  <Target className="w-6 h-6 text-[#B8860B]" />
+                </div>
+                <div>
+                  <h3 className="font-heading text-xl font-bold text-[#F5F5F5]">Premium Mentorship</h3>
+                  <p className="font-paragraph text-sm text-[#F5F5F5]/60">1-on-1 with industry experts</p>
+                </div>
+              </div>
+              <div className="space-y-4">
+                {['Personalized guidance', 'Career clarity', 'Network building'].map((item, i) => (
+                  <motion.div 
+                    key={i}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.6 + i * 0.1 }}
+                    className="flex items-center gap-3"
+                  >
+                    <div className="w-2 h-2 bg-[#B8860B] rounded-full" />
+                    <span className="font-paragraph text-sm text-[#F5F5F5]/80">{item}</span>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* OPTION 4: Slow scroll indicator */}
       <motion.div 
         style={{ opacity: useTransform(scrollY, [0, 200], [1, 0]) }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
       >
-        <span className="font-paragraph text-[10px] uppercase tracking-[0.2em]">Scroll to Initialize</span>
-        <div className="w-px h-12 bg-gradient-to-b from-secondary to-transparent" />
+        <span className="font-paragraph text-[10px] uppercase tracking-[0.3em] text-[#F5F5F5]/50">Scroll</span>
+        <motion.div 
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="w-px h-12 bg-gradient-to-b from-[#B8860B] to-transparent"
+        />
       </motion.div>
     </section>
   );
 };
 
-const MissionVisionSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-10%" });
-
-  return (
-    <section ref={ref} className="relative w-full bg-secondary text-secondary-foreground py-32 overflow-hidden">
-      <GridBackground theme="dark" />
-      
-      <div className="max-w-[120rem] mx-auto px-6 lg:px-12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
-          {/* Mission */}
-          <div className="relative">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8 }}
-              className="sticky top-32"
-            >
-              <div className="flex items-center gap-4 mb-8">
-                <div className="p-3 bg-primary/10 border border-primary/20">
-                  <Target className="w-8 h-8 text-primary" />
-                </div>
-                <span className="font-paragraph text-primary text-sm tracking-widest uppercase">/// Mission Protocol</span>
-              </div>
-              <h2 className="font-heading text-4xl lg:text-6xl font-bold mb-8 leading-tight">
-                ELIMINATE<br />UNCERTAINTY
-              </h2>
-              <p className="font-paragraph text-secondary-foreground/70 text-lg leading-relaxed max-w-xl border-l-2 border-primary/30 pl-6">
-                To eliminate educational uncertainty by connecting students with professionals practicing their target careers. We bridge the gap between academic learning and real-world expertise.
-              </p>
-            </motion.div>
-          </div>
-
-          {/* Vision */}
-          <div className="relative pt-24 lg:pt-64">
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <div className="flex items-center gap-4 mb-8 justify-end">
-                <span className="font-paragraph text-primary text-sm tracking-widest uppercase">Vision Protocol ///</span>
-                <div className="p-3 bg-primary/10 border border-primary/20">
-                  <Eye className="w-8 h-8 text-primary" />
-                </div>
-              </div>
-              <h2 className="font-heading text-4xl lg:text-6xl font-bold mb-8 leading-tight text-right">
-                PREMIER<br />PLATFORM
-              </h2>
-              <p className="font-paragraph text-secondary-foreground/70 text-lg leading-relaxed max-w-xl ml-auto text-right border-r-2 border-primary/30 pr-6">
-                To become India's premier mentorship platform for students nationwide. We envision a future where every student in Classes 6-12 has access to personalized guidance from industry experts.
-              </p>
-              
-              {/* Decorative Image */}
-              <div className="mt-16 relative aspect-video w-full overflow-hidden border border-secondary-foreground/10 group">
-                <div className="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 group-hover:bg-primary/10 transition-colors duration-500" />
-                <img 
-                  src="https://static.wixstatic.com/media/c4abef_7268acbcbe2a42b88a76cc4e55d3b54e~mv2.png?originWidth=1152&originHeight=640" 
-                  alt="Visionary mentorship session"
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
-                />
-                <div className="absolute bottom-4 right-4 z-20 font-paragraph text-xs bg-black/80 px-2 py-1 text-primary">
-                  IMG_REF: 001_VISION
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const ProgramCard = ({ program, index }: { program: typeof PROGRAMS[0], index: number }) => {
+// OPTION 6: Premium Card Design
+const PremiumProgramCard = ({ program, index }: { program: typeof PROGRAMS[0], index: number }) => {
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative h-full bg-background border border-secondary/10 hover:border-primary transition-colors duration-300 flex flex-col"
+      transition={{ duration: 0.8, delay: index * 0.15 }}
+      whileHover={{ y: -8 }}
+      className="group relative bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] border border-[#B8860B]/20 hover:border-[#B8860B] transition-all duration-500 rounded-2xl overflow-hidden"
     >
-      <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
-        <Cpu className="w-12 h-12 text-primary" />
-      </div>
+      {/* OPTION 3: Inner glow effect */}
+      <div className="absolute inset-0 bg-[#B8860B]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       
-      <div className="p-8 flex-grow">
-        <div className="font-paragraph text-xs text-primary mb-4">PROGRAM_ID: {program.id.toUpperCase()}</div>
-        <h3 className="font-heading text-3xl font-bold mb-6 group-hover:text-primary transition-colors">{program.title}</h3>
-        <p className="font-paragraph text-secondary/70 mb-8 leading-relaxed">{program.description}</p>
-        
-        <div className="space-y-3 mb-8">
-          {program.specs.map((spec, i) => (
-            <div key={i} className="flex items-center gap-3 text-sm font-paragraph text-secondary/60">
-              <div className="w-1.5 h-1.5 bg-primary" />
-              {spec}
-            </div>
-          ))}
-        </div>
+      {/* OPTION 1: Gold corner accent */}
+      <div className="absolute top-0 right-0 w-20 h-20">
+        <div className="absolute top-0 right-0 w-0 h-0 border-t-[40px] border-r-[40px] border-t-[#B8860B] border-r-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
       </div>
 
-      <div className="p-8 pt-0 mt-auto">
+      <div className="relative p-8">
+        {/* OPTION 7: Gold icon */}
+        <div className="mb-6">
+          <div className="w-16 h-16 rounded-full border-2 border-[#B8860B]/30 group-hover:border-[#B8860B] transition-all flex items-center justify-center">
+            <Cpu className="w-8 h-8 text-[#B8860B] group-hover:scale-110 transition-transform" />
+          </div>
+        </div>
+
+        <div className="font-paragraph text-xs text-[#B8860B] mb-3 tracking-wider">
+          PROGRAM_ID: {program.id.toUpperCase()}
+        </div>
+
+        {/* OPTION 2: Luxury typography */}
+        <h3 className="font-heading text-2xl font-bold text-[#F5F5F5] mb-4 group-hover:text-[#B8860B] transition-colors">
+          {program.title}
+        </h3>
+
+        <p className="font-paragraph text-sm text-[#F5F5F5]/60 mb-6 leading-relaxed">
+          {program.description}
+        </p>
+
+        {/* OPTION 6: Premium specs with gold bullets */}
+        <div className="space-y-3 mb-8">
+          {program.specs.map((spec, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, x: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 + i * 0.1 }}
+              className="flex items-center gap-3"
+            >
+              <div className="w-1.5 h-1.5 bg-[#B8860B] rounded-full" />
+              <span className="font-paragraph text-sm text-[#F5F5F5]/70">{spec}</span>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* OPTION 8: Gold ripple effect on hover */}
         <Link 
           to={program.link}
-          className="w-full py-4 border-t border-secondary/10 flex items-center justify-between group-hover:border-primary/30 transition-colors"
+          className="relative inline-flex items-center gap-2 text-[#F5F5F5] group-hover:text-[#B8860B] transition-colors font-paragraph text-sm font-bold overflow-hidden"
         >
-          <span className="font-paragraph text-sm font-bold group-hover:text-primary transition-colors">Initialize Program</span>
-          <ArrowRight className="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-300 text-primary" />
+          <span>Initialize Program</span>
+          <ArrowRight className="w-4 h-4 transform group-hover:translate-x-2 transition-transform" />
+          <motion.div 
+            className="absolute bottom-0 left-0 w-full h-px bg-[#B8860B]"
+            initial={{ scaleX: 0 }}
+            whileHover={{ scaleX: 1 }}
+            transition={{ duration: 0.3 }}
+          />
         </Link>
       </div>
     </motion.div>
   );
 };
 
-const BatchStructureSection = () => {
-  const batches = [
-    {
-      name: 'Dream Foundation',
-      classes: 'Class 6–8',
-      focus: 'Awareness, curiosity, basics',
-      color: 'from-blue-500 to-blue-600',
-      programs: [
-        { name: 'Tech Buds', career: 'Engineering' },
-        { name: 'Little Healers', career: 'Medical (MBBS)' },
-        { name: 'Young Leaders', career: 'Civil Services (IAS/IPS)' }
-      ]
-    },
-    {
-      name: 'Dream Explorer',
-      classes: 'Class 9–10',
-      focus: 'Skill discovery, career clarity',
-      color: 'from-purple-500 to-purple-600',
-      programs: [
-        { name: 'Tech Explorers', career: 'Engineering' },
-        { name: 'Medical Explorers', career: 'Medical (MBBS)' },
-        { name: 'Civil Services Explorers', career: 'Civil Services (IAS/IPS)' }
-      ]
-    },
-    {
-      name: 'Dream Achiever',
-      classes: 'Class 11–12',
-      focus: 'Preparation, specialization, roadmap',
-      color: 'from-orange-500 to-orange-600',
-      programs: [
-        { name: 'Engineering Excellence', career: 'Engineering' },
-        { name: 'Medical Excellence', career: 'Medical (MBBS)' },
-        { name: 'Civil Services Excellence', career: 'Civil Services (IAS/IPS)' }
-      ]
-    }
-  ];
-
+// OPTION 7: Premium Image with Gold Overlay
+const PremiumImage = ({ src, alt }: { src: string; alt: string }) => {
   return (
-    <section className="w-full py-32 bg-secondary text-secondary-foreground relative overflow-hidden">
-      <GridBackground theme="dark" />
-      
-      <div className="max-w-[120rem] mx-auto px-6 lg:px-12 relative z-10">
-        <div className="mb-20">
-          <h2 className="font-heading text-5xl lg:text-7xl font-bold mb-6">
-            BATCH STRUCTURE
-          </h2>
-          <p className="font-paragraph text-secondary-foreground/70 max-w-2xl text-lg">
-            Our comprehensive program architecture spans three career paths across three age-based batches, ensuring tailored guidance at every stage of your educational journey.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {batches.map((batch, index) => (
-            <motion.div
-              key={batch.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="border border-secondary-foreground/20 p-8 hover:border-primary/50 transition-colors"
-            >
-              <div className={`inline-block px-4 py-2 bg-gradient-to-r ${batch.color} text-white mb-6 font-paragraph text-xs font-bold`}>
-                {batch.classes}
-              </div>
-              
-              <h3 className="font-heading text-3xl font-bold mb-3">{batch.name}</h3>
-              <p className="font-paragraph text-secondary-foreground/70 mb-6 text-sm">
-                <span className="text-primary font-semibold">Focus:</span> {batch.focus}
-              </p>
-
-              <div className="space-y-3">
-                {batch.programs.map((program, i) => (
-                  <div key={i} className="flex items-start gap-3 pb-3 border-b border-secondary-foreground/10 last:border-b-0 last:pb-0">
-                    <div className="w-2 h-2 bg-primary mt-2 flex-shrink-0" />
-                    <div>
-                      <div className="font-heading text-sm font-bold">{program.name}</div>
-                      <div className="font-paragraph text-xs text-secondary-foreground/60">{program.career}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Career Paths Overview */}
-        <div className="mt-20 pt-20 border-t border-secondary-foreground/20">
-          <h3 className="font-heading text-3xl font-bold mb-12">THREE MAIN CAREER PATHS</h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'Engineering Program',
-                description: 'Comprehensive preparation for aspiring engineers with mentorship from professionals at top tech companies.',
-                programs: ['Tech Buds', 'Tech Explorers', 'Engineering Excellence']
-              },
-              {
-                title: 'Medical (MBBS) Program',
-                description: 'MBBS preparation with mentorship from practicing doctors and medical professionals from premier institutions.',
-                programs: ['Little Healers', 'Medical Explorers', 'Medical Excellence']
-              },
-              {
-                title: 'Civil Services Program',
-                description: 'Strategic guidance for IAS/IPS aspirants with insights from serving officers and successful candidates.',
-                programs: ['Young Leaders', 'Civil Services Explorers', 'Civil Services Excellence']
-              }
-            ].map((career, index) => (
-              <motion.div
-                key={career.title}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-secondary-foreground/5 border border-secondary-foreground/20 p-8 hover:bg-secondary-foreground/10 transition-colors"
-              >
-                <h4 className="font-heading text-2xl font-bold mb-4">{career.title}</h4>
-                <p className="font-paragraph text-secondary-foreground/70 mb-6">{career.description}</p>
-                
-                <div className="space-y-2">
-                  <div className="font-paragraph text-xs text-primary font-semibold mb-3">PROGRAM PROGRESSION:</div>
-                  {career.programs.map((prog, i) => (
-                    <div key={i} className="font-paragraph text-sm text-secondary-foreground/80 flex items-center gap-2">
-                      <span className="text-primary">→</span> {prog}
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+    <div className="relative group overflow-hidden rounded-2xl">
+      <div className="absolute inset-0 bg-[#B8860B]/20 mix-blend-overlay z-10 group-hover:opacity-75 transition-opacity" />
+      <img 
+        src={src}
+        alt={alt}
+        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+      />
+      <div className="absolute bottom-4 right-4 z-20 px-3 py-1 bg-[#0A0A0A]/80 border border-[#B8860B] text-[#B8860B] font-paragraph text-xs">
+        PREMIUM
       </div>
-    </section>
-  );
-};
-
-const ProgramsSection = () => {
-  return (
-    <section className="w-full py-32 bg-background relative">
-      <div className="max-w-[120rem] mx-auto px-6 lg:px-12">
-        <div className="flex flex-col lg:flex-row justify-between items-end mb-20">
-          <div>
-            <h2 className="font-heading text-5xl lg:text-7xl font-bold mb-6">
-              SPECIALIZED<br />PROGRAMS
-            </h2>
-            <p className="font-paragraph text-secondary/60 max-w-xl">
-              Executive grade edtech solutions designed for students in Classes 6-12. Select your trajectory.
-            </p>
-          </div>
-          <div className="hidden lg:block pb-4">
-            <div className="flex gap-2">
-              {[0, 1, 2].map((i) => (
-                <div key={i} className={`w-3 h-3 ${i === 0 ? 'bg-primary' : 'bg-secondary/20'}`} />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {PROGRAMS.map((program, index) => (
-            <ProgramCard key={program.id} program={program} index={index} />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const FeatureTicker = () => {
-  return (
-    <div className="w-full bg-primary text-primary-foreground overflow-hidden py-4 border-y border-primary-foreground/20">
-      <motion.div 
-        className="flex whitespace-nowrap"
-        animate={{ x: [0, -1000] }}
-        transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-      >
-        {[...Array(4)].map((_, i) => (
-          <div key={i} className="flex items-center gap-12 px-6">
-            <span className="font-heading text-2xl font-bold">EXECUTIVE GRADE EDUCATION</span>
-            <span className="font-paragraph text-sm">///</span>
-            <span className="font-heading text-2xl font-bold">FUTURE LEADERS</span>
-            <span className="font-paragraph text-sm">///</span>
-            <span className="font-heading text-2xl font-bold">EXPERT MENTORSHIP</span>
-            <span className="font-paragraph text-sm">///</span>
-          </div>
-        ))}
-      </motion.div>
     </div>
   );
 };
 
-const WhyChooseUsSection = () => {
-  return (
-    <section className="w-full py-32 bg-secondary text-secondary-foreground relative overflow-hidden">
-      <GridBackground theme="dark" />
-      
-      <div className="max-w-[120rem] mx-auto px-6 lg:px-12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-          {/* Sticky Header */}
-          <div className="lg:col-span-4">
-            <div className="sticky top-32">
-              <h2 className="font-heading text-5xl lg:text-6xl font-bold mb-8">
-                SYSTEM<br />ADVANTAGES
-              </h2>
-              <p className="font-paragraph text-secondary-foreground/70 mb-12">
-                Why Junior Dream? We connect students with professionals who are actively practicing in their target careers.
-              </p>
-              <div className="w-24 h-1 bg-primary mb-8" />
-              <div className="font-paragraph text-xs text-primary/80">
-                EST. 2025 • GURUGRAM, HARYANA
-              </div>
-            </div>
-          </div>
+// OPTION 4 & 5: Premium Mission Vision Section
+const PremiumMissionVisionSection = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-10%" });
 
-          {/* Features Grid */}
-          <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-            {FEATURES.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`p-8 border border-secondary-foreground/20 bg-secondary-foreground/5 hover:bg-secondary-foreground/10 transition-colors ${index === 2 ? 'md:col-span-2' : ''}`}
-              >
-                <div className="flex justify-between items-start mb-8">
-                  <feature.icon className="w-10 h-10 text-primary" />
-                  <span className="font-heading text-4xl font-bold text-secondary-foreground/20">{feature.stat}</span>
-                </div>
-                <h3 className="font-heading text-2xl font-bold mb-4">{feature.title}</h3>
-                <p className="font-paragraph text-sm text-secondary-foreground/70 leading-relaxed">
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
-            
-            {/* Image Block */}
-            <div className="md:col-span-2 mt-8 relative h-[400px] w-full overflow-hidden border border-secondary-foreground/20">
-              <div className="absolute inset-0 bg-gradient-to-t from-secondary via-transparent to-transparent z-10" />
-              <img 
-                src="https://static.wixstatic.com/media/c4abef_8245f091259247328a761b080182f20a~mv2.png?originWidth=896&originHeight=576" 
-                alt="Mentorship in action"
-                className="w-full h-full object-cover opacity-60 hover:opacity-80 transition-opacity duration-700"
-              />
-              <div className="absolute bottom-8 left-8 z-20">
-                <div className="font-heading text-3xl font-bold mb-2">REAL WORLD CONNECTION</div>
-                <div className="font-paragraph text-sm text-primary">{'{ Status: Active }'}</div>
+  return (
+    <section ref={ref} className="relative w-full py-32 bg-[#0A0A0A] overflow-hidden">
+      <NoiseTexture />
+      <GoldParticles />
+
+      {/* OPTION 5: Asymmetric layout */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+          {/* Mission - OPTION 4: Slow reveal */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 1.2 }}
+          >
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-16 h-16 rounded-full border-2 border-[#B8860B] flex items-center justify-center">
+                <Target className="w-8 h-8 text-[#B8860B]" />
+              </div>
+              <span className="font-paragraph text-[#B8860B] text-sm tracking-[0.3em] uppercase">Mission</span>
+            </div>
+            <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-black text-[#F5F5F5] mb-8 leading-tight">
+              ELIMINATE<br />UNCERTAINTY
+            </h2>
+            <p className="font-paragraph text-lg text-[#F5F5F5]/60 leading-relaxed border-l-2 border-[#B8860B] pl-6">
+              To eliminate educational uncertainty by connecting students with professionals practicing their target careers.
+            </p>
+          </motion.div>
+
+          {/* Vision - OPTION 5: Offset layout */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 1.2, delay: 0.3 }}
+            className="lg:mt-32"
+          >
+            <div className="flex items-center gap-4 mb-8 justify-end">
+              <span className="font-paragraph text-[#B8860B] text-sm tracking-[0.3em] uppercase">Vision</span>
+              <div className="w-16 h-16 rounded-full border-2 border-[#B8860B] flex items-center justify-center">
+                <Eye className="w-8 h-8 text-[#B8860B]" />
               </div>
             </div>
-          </div>
+            <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-black text-[#F5F5F5] mb-8 leading-tight text-right">
+              PREMIER<br />PLATFORM
+            </h2>
+            <p className="font-paragraph text-lg text-[#F5F5F5]/60 leading-relaxed text-right border-r-2 border-[#B8860B] pr-6">
+              To become India's premier mentorship platform for students nationwide.
+            </p>
+
+            {/* OPTION 7: Premium image */}
+            <div className="mt-12">
+              <PremiumImage 
+                src="https://static.wixstatic.com/media/c4abef_7268acbcbe2a42b88a76cc4e55d3b54e~mv2.png"
+                alt="Premium mentorship"
+              />
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
   );
 };
 
-const CTASection = () => {
+// OPTION 10: Premium Footer
+const PremiumFooter = () => {
   return (
-    <section className="w-full py-32 bg-background relative overflow-hidden">
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute right-0 top-0 w-1/2 h-full bg-primary transform skew-x-12 translate-x-1/4" />
-      </div>
+    <footer className="bg-gradient-to-b from-[#0A0A0A] to-[#000000] text-[#F5F5F5] border-t border-[#B8860B]/20">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          {/* Company Info */}
+          <div>
+            <h3 className="font-heading text-2xl font-black text-[#F5F5F5] mb-6 tracking-wider">
+              {'{ Junior Dream }'}
+            </h3>
+            <p className="font-paragraph text-sm text-[#F5F5F5]/60 mb-4 leading-relaxed">
+              Executive grade edtech solutions connecting students with professionals.
+            </p>
+            <p className="font-paragraph text-xs text-[#F5F5F5]/40">
+              Founded 2025
+            </p>
+          </div>
 
-      <div className="max-w-5xl mx-auto px-6 lg:px-12 text-center relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="inline-block mb-8">
-            <Terminal className="w-12 h-12 text-primary mx-auto mb-4" />
-            <div className="font-paragraph text-sm text-secondary/60 uppercase tracking-widest">Ready to execute?</div>
+          {/* Quick Links - with gold hover */}
+          <div>
+            <h4 className="font-paragraph text-sm font-bold text-[#B8860B] mb-6 tracking-wider">Quick Links</h4>
+            <nav className="flex flex-col gap-3">
+              {['Home', 'Programs', 'Mentorship', 'About', 'Partnerships'].map((item) => (
+                <Link 
+                  key={item}
+                  to={`/${item.toLowerCase()}`}
+                  className="font-paragraph text-sm text-[#F5F5F5]/60 hover:text-[#B8860B] transition-colors"
+                >
+                  {item}
+                </Link>
+              ))}
+            </nav>
           </div>
-          
-          <h2 className="font-heading text-5xl lg:text-7xl font-bold mb-8 text-secondary">
-            TRANSFORM YOUR<br />
-            <span className="text-primary">EDUCATIONAL JOURNEY</span>
-          </h2>
-          
-          <p className="font-paragraph text-lg text-secondary/70 mb-12 max-w-2xl mx-auto">
-            Join Junior Dream and connect with professionals who can guide you toward your career goals. The future is waiting for your input.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <Link 
-              to="/partnerships#contact"
-              className="group relative px-10 py-5 bg-secondary text-secondary-foreground font-paragraph font-bold overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
-              <span className="relative z-10 flex items-center gap-3">
-                {'{ START_APPLICATION }'} <ChevronRight className="w-4 h-4" />
-              </span>
-            </Link>
-            
-            <Link 
-              to="/mentorship"
-              className="group px-10 py-5 border-2 border-secondary text-secondary font-paragraph font-bold hover:bg-secondary hover:text-secondary-foreground transition-colors duration-300"
-            >
-              <span className="flex items-center gap-3">
-                [ View Mentors ]
-              </span>
-            </Link>
+
+          {/* Programs */}
+          <div>
+            <h4 className="font-paragraph text-sm font-bold text-[#B8860B] mb-6 tracking-wider">Our Programs</h4>
+            <nav className="flex flex-col gap-3">
+              {PROGRAMS.map((program) => (
+                <Link 
+                  key={program.id}
+                  to="/programs"
+                  className="font-paragraph text-sm text-[#F5F5F5]/60 hover:text-[#B8860B] transition-colors"
+                >
+                  {program.title}
+                </Link>
+              ))}
+            </nav>
           </div>
-        </motion.div>
+
+          {/* Contact - with glowing input */}
+          <div>
+            <h4 className="font-paragraph text-sm font-bold text-[#B8860B] mb-6 tracking-wider">Contact</h4>
+            <div className="space-y-4">
+              <p className="font-paragraph text-sm text-[#F5F5F5]/60 flex items-center gap-3">
+                <span className="text-[#B8860B]">→</span> Gurugram, Haryana
+              </p>
+              <p className="font-paragraph text-sm text-[#F5F5F5]/60 flex items-center gap-3">
+                <span className="text-[#B8860B]">→</span> info@juniordream.com
+              </p>
+              
+              {/* OPTION 10: Newsletter with glow */}
+              <div className="mt-6">
+                <input 
+                  type="email"
+                  placeholder="Your email"
+                  className="w-full px-4 py-3 bg-[#1A1A1A] border border-[#B8860B]/30 focus:border-[#B8860B] focus:outline-none text-[#F5F5F5] font-paragraph text-sm transition-all duration-300"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* OPTION 1: Gold divider */}
+        <div className="border-t border-[#B8860B]/20 mt-12 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="font-paragraph text-xs text-[#F5F5F5]/40">
+              © 2025 Junior Dream. All rights reserved.
+            </p>
+            <div className="flex items-center gap-6">
+              <Link to="#" className="font-paragraph text-xs text-[#F5F5F5]/40 hover:text-[#B8860B] transition-colors">
+                Privacy
+              </Link>
+              <Link to="#" className="font-paragraph text-xs text-[#F5F5F5]/40 hover:text-[#B8860B] transition-colors">
+                Terms
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
-    </section>
+    </footer>
   );
 };
 
+// Main HomePage with all premium features
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-background text-secondary selection:bg-primary selection:text-white overflow-x-hidden">
-      {/* ❌ REMOVED: <Header /> - Already in Router Layout */}
+    <div className="min-h-screen bg-[#0A0A0A] text-[#F5F5F5] selection:bg-[#B8860B] selection:text-[#0A0A0A] overflow-x-hidden">
+      <PremiumHeader />
       
       <main>
-        <HeroSection />
-        <FeatureTicker />
-        <MissionVisionSection />
-        <BatchStructureSection />
-        <ProgramsSection />
-        <WhyChooseUsSection />
-        <CTASection />
+        <PremiumHeroSection />
+        
+        {/* OPTION 4: Slow moving ticker */}
+        <div className="w-full bg-[#B8860B] py-4 overflow-hidden">
+          <motion.div 
+            className="flex whitespace-nowrap"
+            animate={{ x: [0, -2000] }}
+            transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
+          >
+            {[...Array(10)].map((_, i) => (
+              <div key={i} className="flex items-center gap-8 px-6">
+                <span className="font-heading text-lg font-black text-[#0A0A0A]">✦ PREMIUM EDUCATION</span>
+                <span className="text-[#0A0A0A]">///</span>
+                <span className="font-heading text-lg font-black text-[#0A0A0A]">✦ FUTURE LEADERS</span>
+                <span className="text-[#0A0A0A]">///</span>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        <PremiumMissionVisionSection />
+
+        {/* Programs Section with premium cards */}
+        <section className="w-full py-32 bg-[#0A0A0A]">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-16"
+            >
+              <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-black text-[#F5F5F5] mb-4">
+                SPECIALIZED PROGRAMS
+              </h2>
+              <div className="w-24 h-1 bg-[#B8860B] mx-auto" />
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {PROGRAMS.map((program, index) => (
+                <PremiumProgramCard key={program.id} program={program} index={index} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Why Choose Us with premium features */}
+        <section className="w-full py-32 bg-gradient-to-b from-[#0A0A0A] to-[#1A1A1A]">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+              >
+                <h2 className="font-heading text-4xl md:text-5xl font-black text-[#F5F5F5] mb-6">
+                  WHY CHOOSE<br />US?
+                </h2>
+                <div className="w-24 h-1 bg-[#B8860B] mb-8" />
+                <p className="font-paragraph text-lg text-[#F5F5F5]/60 leading-relaxed">
+                  We connect students with professionals who are actively practicing in their target careers.
+                </p>
+              </motion.div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {FEATURES.map((feature, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: index * 0.1 }}
+                    whileHover={{ scale: 1.02 }}
+                    className="p-6 border border-[#B8860B]/20 hover:border-[#B8860B] transition-all rounded-xl"
+                  >
+                    <feature.icon className="w-8 h-8 text-[#B8860B] mb-4" />
+                    <h3 className="font-heading text-xl font-bold text-[#F5F5F5] mb-2">{feature.title}</h3>
+                    <p className="font-paragraph text-sm text-[#F5F5F5]/60">{feature.description}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="w-full py-32 bg-[#0A0A0A] relative overflow-hidden">
+          <GoldParticles />
+          <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <Terminal className="w-12 h-12 text-[#B8860B] mx-auto mb-6" />
+              <h2 className="font-heading text-4xl md:text-5xl font-black text-[#F5F5F5] mb-6">
+                TRANSFORM YOUR<br />
+                <span className="text-[#B8860B]">EDUCATIONAL JOURNEY</span>
+              </h2>
+              <p className="font-paragraph text-lg text-[#F5F5F5]/60 mb-12 max-w-2xl mx-auto">
+                Join Junior Dream and connect with professionals who can guide you toward your career goals.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                <Link 
+                  to="/partnerships#contact"
+                  className="px-10 py-5 bg-[#B8860B] text-[#0A0A0A] font-paragraph font-bold hover:bg-[#D4AF37] transition-all"
+                >
+                  {'{ START APPLICATION }'}
+                </Link>
+                <Link 
+                  to="/mentorship"
+                  className="px-10 py-5 border-2 border-[#B8860B] text-[#B8860B] font-paragraph font-bold hover:bg-[#B8860B] hover:text-[#0A0A0A] transition-all"
+                >
+                  [ VIEW MENTORS ]
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </section>
       </main>
 
-      {/* ❌ REMOVED: <Footer /> - Already in Router Layout */}
+      <PremiumFooter />
     </div>
   );
 }
