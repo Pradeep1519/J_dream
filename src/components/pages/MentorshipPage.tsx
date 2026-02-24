@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import PremiumHeader from '../PremiumHeader'; // ✅ IMPORT ADD KIYA
 import { Users, Award, Target, Linkedin } from 'lucide-react';
 // import { Mentors } from '@/entities';
 // import { Image } from '@/components/ui/image';
@@ -27,7 +28,7 @@ export default function MentorshipPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* ❌ REMOVED: <Header /> - Already in Router Layout */}
+      <PremiumHeader /> {/* ✅ HEADER ADD KIYA */}
 
       {/* Hero Section */}
       <section className="bg-secondary text-secondary-foreground py-20">

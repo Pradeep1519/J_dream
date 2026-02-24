@@ -1,5 +1,6 @@
 // HPI 1.7-V - PREMIUM EDITION (ALL 10 OPTIONS)
 import React, { useState, useRef, useEffect } from 'react';
+import PremiumHeader from '../PremiumHeader';
 import { Link } from 'react-router-dom';
 import { 
   ArrowRight, 
@@ -68,6 +69,15 @@ const FEATURES = [
 
 // OPTION 3: Background Effects - Gold Particles
 const GoldParticles = () => {
+  const [dimensions, setDimensions] = useState({ width: 1200, height: 800 });
+
+  useEffect(() => {
+    setDimensions({
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+  }, []);
+
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {[...Array(20)].map((_, i) => (
@@ -75,8 +85,8 @@ const GoldParticles = () => {
           key={i}
           className="absolute w-1 h-1 bg-[#B8860B] rounded-full opacity-20"
           initial={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
+            x: Math.random() * dimensions.width,
+            y: Math.random() * dimensions.height,
           }}
           animate={{
             y: [null, -100],
@@ -104,70 +114,7 @@ const NoiseTexture = () => (
   />
 );
 
-// OPTION 2: Luxury Fonts CSS (add in global.css)
-/*
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
-*/
-
-// OPTION 9: Premium Header
-const PremiumHeader = () => {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  return (
-    <motion.header 
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled 
-          ? 'bg-[#0A0A0A] border-b border-[#B8860B]/30 py-2' 
-          : 'bg-transparent py-4'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Logo with gold glow */}
-          <Link to="/" className="relative group">
-            <span className="font-heading text-2xl font-black text-[#F5F5F5] tracking-wider">
-              {'{ Junior Dream }'}
-            </span>
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#B8860B] group-hover:w-full transition-all duration-300" />
-          </Link>
-
-          {/* Navigation with gold hover */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {['Home', 'Programs', 'Mentorship', 'About', 'Partnerships'].map((item, i) => (
-              <Link
-                key={i}
-                to={`/${item.toLowerCase()}`}
-                className="relative group font-paragraph text-sm text-[#F5F5F5] hover:text-[#B8860B] transition-colors"
-              >
-                {item}
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#B8860B] group-hover:w-full transition-all duration-300" />
-              </Link>
-            ))}
-            <Link
-              to="/partnerships#contact"
-              className="px-6 py-3 border border-[#B8860B] text-[#B8860B] hover:bg-[#B8860B] hover:text-[#0A0A0A] transition-all duration-300 font-paragraph text-sm"
-            >
-              {'=> Contact'}
-            </Link>
-          </nav>
-        </div>
-      </div>
-    </motion.header>
-  );
-};
-
-// OPTION 1 & 4: Premium Hero Section
+// OPTION 1 & 4: Premium Hero Section (with smaller heading)
 const PremiumHeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
@@ -225,8 +172,8 @@ const PremiumHeroSection = () => {
               </span>
             </motion.div>
 
-            {/* OPTION 2: Luxury typography */}
-            <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[1.1] tracking-tight mb-8">
+            {/* OPTION 2: Luxury typography - CHOTI HEADING YAHAN HAI */}
+            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.1] tracking-tight mb-8">
               <span className="text-[#F5F5F5]">INNOVATIVE</span><br />
               <span className="text-[#F5F5F5]">EDUCATION</span><br />
               <span className="text-[#B8860B]">SOLUTIONS</span>
@@ -590,9 +537,13 @@ export default function HomePage() {
           >
             {[...Array(10)].map((_, i) => (
               <div key={i} className="flex items-center gap-8 px-6">
-                <span className="font-heading text-lg font-black text-[#0A0A0A]">✦ PREMIUM EDUCATION</span>
+                <span className="font-heading text-lg font-black text-[#0A0A0A]">✦ ONE TO ONE MEET</span>
                 <span className="text-[#0A0A0A]">///</span>
                 <span className="font-heading text-lg font-black text-[#0A0A0A]">✦ FUTURE LEADERS</span>
+                <span className="text-[#0A0A0A]">///</span>
+                <span className="font-heading text-lg font-black text-[#0A0A0A]">✦ CAREER CLARITY</span>
+                <span className="text-[#0A0A0A]">///</span>
+                <span className="font-heading text-lg font-black text-[#0A0A0A]">✦ EXPERT GUIDANCE</span>
                 <span className="text-[#0A0A0A]">///</span>
               </div>
             ))}

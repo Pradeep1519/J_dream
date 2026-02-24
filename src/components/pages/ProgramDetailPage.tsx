@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import PremiumHeader from '../PremiumHeader'; // ✅ IMPORT ADD KIYA
 import { ArrowLeft, BookOpen, Users, Target, Zap, Award, Briefcase } from 'lucide-react';
 // import { Programs } from '@/entities';
 // import { Image } from '@/components/ui/image';
@@ -57,7 +58,7 @@ export default function ProgramDetailPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* ❌ REMOVED: <Header /> - Already in Router Layout */}
+      <PremiumHeader /> {/* ✅ HEADER ADD KIYA */}
 
       <div className="max-w-[120rem] mx-auto px-6 lg:px-12 py-12" style={{ minHeight: '60vh' }}>
         {isLoading ? (

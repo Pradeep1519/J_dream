@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import PremiumHeader from '../PremiumHeader'; // ✅ IMPORT SAHI KARA
 import { TrendingUp, Users, Award, Linkedin } from 'lucide-react';
 import { LeadershipTeam, PerformanceMetrics } from '@/entities';
 // import { Image } from '@/components/ui/image'; // Comment out
@@ -43,8 +44,8 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* ❌ REMOVED: <Header /> - Already in Router Layout */}
-
+      <PremiumHeader /> {/* ✅ HEADER ADD KIYA */}
+      
       {/* Hero Section */}
       <section className="bg-secondary text-secondary-foreground py-20">
         <div className="max-w-[120rem] mx-auto px-6 lg:px-12">

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import PremiumHeader from '../PremiumHeader'; // ✅ IMPORT ADD KIYA
 import { ArrowRight, Filter } from 'lucide-react';
 // import { Programs } from '@/entities';
 // import { Image } from '@/components/ui/image';
@@ -64,7 +65,7 @@ export default function ProgramsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* ❌ REMOVED: <Header /> - Already in Router Layout */}
+      <PremiumHeader /> {/* ✅ HEADER ADD KIYA */}
 
       {/* Hero Section */}
       <section className="bg-secondary text-secondary-foreground py-20">
