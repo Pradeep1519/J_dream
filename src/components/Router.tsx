@@ -6,6 +6,7 @@ import ProgramDetailPage from './pages/ProgramDetailPage';
 import MentorshipPage from './pages/MentorshipPage';
 import AboutPage from './pages/AboutPage';
 import PartnershipsPage from './pages/PartnershipsPage';
+import ProgramBatchDetail from './pages/ProgramBatchDetail';
 // import Header from './Header';  // ❌ YEH HATAYA
 // import Footer from './Footer';  // ❌ YEH HATAYA
 
@@ -30,10 +31,11 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "programs", element: <ProgramsPage /> },
       { path: "programs/:id", element: <ProgramDetailPage /> },
+      { path: "programs/:id/:batch", element: <ProgramBatchDetail /> },
       { path: "mentorship", element: <MentorshipPage /> },
       { path: "about", element: <AboutPage /> },
       { path: "partnerships", element: <PartnershipsPage /> },
-      { path: "*", element: <Navigate to="/" replace /> },
+      { path: "*", element: <Navigate to="/" replace /> }
     ],
   },
 ]);
