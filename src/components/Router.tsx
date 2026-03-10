@@ -9,6 +9,9 @@ import AboutPage from './pages/AboutPage';
 import PartnershipsPage from './pages/PartnershipsPage';
 import ApplicationPage from './pages/ApplicationPage';
 import ApplicationSuccess from './pages/ApplicationSuccess';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsConditions';
+import TermsConditions from './pages/TermsConditions';
 
 // Simple Layout component
 function Layout() {
@@ -34,6 +37,8 @@ const router = createBrowserRouter([
       { path: "about", element: <AboutPage /> },
       { path: "partnerships", element: <PartnershipsPage /> },
       { path: "apply", element: <ApplicationPage /> },
+      { path: "privacy", element: <PrivacyPolicy /> },
+      { path: "terms", element: <TermsConditions /> },
       { path: "application-success", element: <ApplicationSuccess /> },
       { path: "*", element: <Navigate to="/" replace /> },
       

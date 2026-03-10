@@ -65,18 +65,18 @@ export default function PremiumFooter() {
               </p>
               <p className="font-paragraph text-sm text-[#F5F5F5]/60 flex items-center gap-3">
                 <Phone size={16} className="text-[#B8860B]" />
-                +91 12345 67890
+                +91 77018 48421
               </p>
               
               {/* Social Links */}
               <div className="flex items-center gap-4 pt-4">
-                <a href="#" className="text-[#F5F5F5]/60 hover:text-[#B8860B] transition-colors">
+                <a href="https://linkedin.com/company/junior-dream" target="_blank" rel="noopener noreferrer" className="text-[#F5F5F5]/60 hover:text-[#B8860B] transition-colors">
                   <Linkedin size={20} />
                 </a>
-                <a href="#" className="text-[#F5F5F5]/60 hover:text-[#B8860B] transition-colors">
+                <a href="https://twitter.com/juniordream" target="_blank" rel="noopener noreferrer" className="text-[#F5F5F5]/60 hover:text-[#B8860B] transition-colors">
                   <Twitter size={20} />
                 </a>
-                <a href="#" className="text-[#F5F5F5]/60 hover:text-[#B8860B] transition-colors">
+                <a href="https://facebook.com/juniordream" target="_blank" rel="noopener noreferrer" className="text-[#F5F5F5]/60 hover:text-[#B8860B] transition-colors">
                   <Facebook size={20} />
                 </a>
               </div>
@@ -91,10 +91,10 @@ export default function PremiumFooter() {
               © 2025 Junior Dream Private Limited. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <Link to="/partnerships" className="font-paragraph text-xs text-[#F5F5F5]/40 hover:text-[#B8860B] transition-colors">
+              <Link to="/privacy" className="font-paragraph text-xs text-[#F5F5F5]/40 hover:text-[#B8860B] transition-colors">
                 Privacy
               </Link>
-              <Link to="/partnerships" className="font-paragraph text-xs text-[#F5F5F5]/40 hover:text-[#B8860B] transition-colors">
+              <Link to="/terms" className="font-paragraph text-xs text-[#F5F5F5]/40 hover:text-[#B8860B] transition-colors">
                 Terms
               </Link>
             </div>
