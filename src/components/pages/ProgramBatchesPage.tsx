@@ -167,6 +167,7 @@ export default function ProgramBatchesPage() {
       setData(BATCHES_DATA[id as keyof typeof BATCHES_DATA]);
     }
     setIsLoading(false);
+    window.scrollTo(0, 0);
   }, [id]);
 
   if (isLoading) {

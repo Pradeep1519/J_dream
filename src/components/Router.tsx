@@ -26,8 +26,8 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: "programs", element: <ProgramsPage /> },
-      { path: "programs/:id/batches", element: <ProgramBatchesPage /> }, // ✅ NEW - Shows 3 batches
-      { path: "programs/:id/:batch", element: <ProgramBatchDetail /> },  // ✅ Batch details
+      { path: "programs/:id/batches", element: <ProgramBatchesPage /> },
+      { path: "programs/:id/:batch", element: <ProgramBatchDetail /> },
       { path: "mentorship", element: <MentorshipPage /> },
       { path: "about", element: <AboutPage /> },
       { path: "partnerships", element: <PartnershipsPage /> },
