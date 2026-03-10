@@ -1,4 +1,4 @@
-// src/components/Router.tsx - FIXED VERSION
+// src/components/Router.tsx - FINAL VERSION
 import { createBrowserRouter, RouterProvider, Navigate, Outlet } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import ProgramsPage from './pages/ProgramsPage';
@@ -7,18 +7,14 @@ import MentorshipPage from './pages/MentorshipPage';
 import AboutPage from './pages/AboutPage';
 import PartnershipsPage from './pages/PartnershipsPage';
 import ProgramBatchDetail from './pages/ProgramBatchDetail';
-// import Header from './Header';  // ❌ YEH HATAYA
-// import Footer from './Footer';  // ❌ YEH HATAYA
 
-// Simple Layout component WITHOUT Header/Footer
+// Simple Layout component
 function Layout() {
   return (
     <div className="min-h-screen bg-background">
-      {/* <Header /> */}  {/* ❌ YEH HATAYA */}
       <main>
         <Outlet />
       </main>
-      {/* <Footer /> */}  {/* ❌ YEH HATAYA */}
     </div>
   );
 }

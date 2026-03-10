@@ -1,6 +1,7 @@
 // HPI 1.7-V - PREMIUM EDITION (ALL 10 OPTIONS)
 import React, { useState, useRef, useEffect } from 'react';
 import PremiumHeader from '../PremiumHeader';
+import PremiumFooter from '../PremiumFooter'; // ✅ IMPORT ADDED
 import { Link } from 'react-router-dom';
 import { 
   ArrowRight, 
@@ -17,7 +18,7 @@ import {
   Sparkles,
   Star
 } from 'lucide-react';
-import { motion, useScroll, useTransform, useInView, useMotionValue } from 'framer-motion';
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 
 // --- CANONICAL DATA SOURCES ---
 const PROGRAMS = [
@@ -25,21 +26,21 @@ const PROGRAMS = [
     id: 'engineering',
     title: 'Engineering Excellence',
     description: 'Comprehensive preparation for aspiring engineers with mentorship from professionals at top tech companies and institutions.',
-    link: '/programs',
+    link: '/programs/engineering',
     specs: ['JEE Main/Adv', 'Mentorship', 'Mock Tests']
   },
   {
     id: 'civil-services',
     title: 'Civil Services Leadership',
     description: 'Strategic guidance for IAS/IPS aspirants with insights from serving officers and successful candidates.',
-    link: '/programs',
+    link: '/programs/civil',
     specs: ['UPSC Syllabus', 'Interview Prep', 'Ethics']
   },
   {
     id: 'medical',
     title: 'Medical Foundations',
     description: 'MBBS preparation with mentorship from practicing doctors and medical professionals from premier institutions.',
-    link: '/programs',
+    link: '/programs/medical',
     specs: ['NEET Prep', 'Clinical Insights', 'Biology']
   }
 ];
@@ -421,101 +422,6 @@ const PremiumMissionVisionSection = () => {
         </div>
       </div>
     </section>
-  );
-};
-
-// OPTION 10: Premium Footer
-const PremiumFooter = () => {
-  return (
-    <footer className="bg-gradient-to-b from-[#0A0A0A] to-[#000000] text-[#F5F5F5] border-t border-[#B8860B]/20">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Company Info */}
-          <div>
-            <h3 className="font-heading text-2xl font-black text-[#F5F5F5] mb-6 tracking-wider">
-              {'{ Junior Dream }'}
-            </h3>
-            <p className="font-paragraph text-sm text-[#F5F5F5]/60 mb-4 leading-relaxed">
-              Executive grade edtech solutions connecting students with professionals.
-            </p>
-            <p className="font-paragraph text-xs text-[#F5F5F5]/40">
-              Founded 2025
-            </p>
-          </div>
-
-          {/* Quick Links - with gold hover */}
-          <div>
-            <h4 className="font-paragraph text-sm font-bold text-[#B8860B] mb-6 tracking-wider">Quick Links</h4>
-            <nav className="flex flex-col gap-3">
-              {['Home', 'Programs', 'Mentorship', 'About', 'Partnerships'].map((item) => (
-                <Link 
-                  key={item}
-                  to={`/${item.toLowerCase()}`}
-                  className="font-paragraph text-sm text-[#F5F5F5]/60 hover:text-[#B8860B] transition-colors"
-                >
-                  {item}
-                </Link>
-              ))}
-            </nav>
-          </div>
-
-          {/* Programs */}
-          <div>
-            <h4 className="font-paragraph text-sm font-bold text-[#B8860B] mb-6 tracking-wider">Our Programs</h4>
-            <nav className="flex flex-col gap-3">
-              {PROGRAMS.map((program) => (
-                <Link 
-                  key={program.id}
-                  to="/programs"
-                  className="font-paragraph text-sm text-[#F5F5F5]/60 hover:text-[#B8860B] transition-colors"
-                >
-                  {program.title}
-                </Link>
-              ))}
-            </nav>
-          </div>
-
-          {/* Contact - with glowing input */}
-          <div>
-            <h4 className="font-paragraph text-sm font-bold text-[#B8860B] mb-6 tracking-wider">Contact</h4>
-            <div className="space-y-4">
-              <p className="font-paragraph text-sm text-[#F5F5F5]/60 flex items-center gap-3">
-                <span className="text-[#B8860B]">→</span> Gurugram, Haryana
-              </p>
-              <p className="font-paragraph text-sm text-[#F5F5F5]/60 flex items-center gap-3">
-                <span className="text-[#B8860B]">→</span> info@juniordream.com
-              </p>
-              
-              {/* OPTION 10: Newsletter with glow */}
-              <div className="mt-6">
-                <input 
-                  type="email"
-                  placeholder="Your email"
-                  className="w-full px-4 py-3 bg-[#1A1A1A] border border-[#B8860B]/30 focus:border-[#B8860B] focus:outline-none text-[#F5F5F5] font-paragraph text-sm transition-all duration-300"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* OPTION 1: Gold divider */}
-        <div className="border-t border-[#B8860B]/20 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="font-paragraph text-xs text-[#F5F5F5]/40">
-              © 2025 Junior Dream. All rights reserved.
-            </p>
-            <div className="flex items-center gap-6">
-              <Link to="#" className="font-paragraph text-xs text-[#F5F5F5]/40 hover:text-[#B8860B] transition-colors">
-                Privacy
-              </Link>
-              <Link to="#" className="font-paragraph text-xs text-[#F5F5F5]/40 hover:text-[#B8860B] transition-colors">
-                Terms
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
   );
 };
 
