@@ -2,11 +2,11 @@
 import { createBrowserRouter, RouterProvider, Navigate, Outlet } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import ProgramsPage from './pages/ProgramsPage';
-import ProgramDetailPage from './pages/ProgramDetailPage';
+import ProgramBatchesPage from './pages/ProgramBatchesPage';
+import ProgramBatchDetail from './pages/ProgramBatchDetail';
 import MentorshipPage from './pages/MentorshipPage';
 import AboutPage from './pages/AboutPage';
 import PartnershipsPage from './pages/PartnershipsPage';
-import ProgramBatchDetail from './pages/ProgramBatchDetail';
 
 // Simple Layout component
 function Layout() {
@@ -26,8 +26,8 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: "programs", element: <ProgramsPage /> },
-      { path: "programs/:id", element: <ProgramDetailPage /> },
-      { path: "programs/:id/:batch", element: <ProgramBatchDetail /> },
+      { path: "programs/:id/batches", element: <ProgramBatchesPage /> }, // ✅ NEW - Shows 3 batches
+      { path: "programs/:id/:batch", element: <ProgramBatchDetail /> },  // ✅ Batch details
       { path: "mentorship", element: <MentorshipPage /> },
       { path: "about", element: <AboutPage /> },
       { path: "partnerships", element: <PartnershipsPage /> },

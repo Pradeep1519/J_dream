@@ -1,7 +1,7 @@
 // HPI 1.7-V - PREMIUM EDITION (ALL 10 OPTIONS)
 import React, { useState, useRef, useEffect } from 'react';
 import PremiumHeader from '../PremiumHeader';
-import PremiumFooter from '../PremiumFooter'; // ✅ IMPORT ADDED
+import PremiumFooter from '../PremiumFooter';
 import { Link } from 'react-router-dom';
 import { 
   ArrowRight, 
@@ -26,21 +26,21 @@ const PROGRAMS = [
     id: 'engineering',
     title: 'Engineering Excellence',
     description: 'Comprehensive preparation for aspiring engineers with mentorship from professionals at top tech companies and institutions.',
-    link: '/programs/engineering',
+    link: '/programs', // ✅ Changed to /programs
     specs: ['JEE Main/Adv', 'Mentorship', 'Mock Tests']
   },
   {
     id: 'civil-services',
     title: 'Civil Services Leadership',
     description: 'Strategic guidance for IAS/IPS aspirants with insights from serving officers and successful candidates.',
-    link: '/programs/civil',
+    link: '/programs', // ✅ Changed to /programs
     specs: ['UPSC Syllabus', 'Interview Prep', 'Ethics']
   },
   {
     id: 'medical',
     title: 'Medical Foundations',
     description: 'MBBS preparation with mentorship from practicing doctors and medical professionals from premier institutions.',
-    link: '/programs/medical',
+    link: '/programs', // ✅ Changed to /programs
     specs: ['NEET Prep', 'Clinical Insights', 'Biology']
   }
 ];
@@ -173,7 +173,7 @@ const PremiumHeroSection = () => {
               </span>
             </motion.div>
 
-            {/* OPTION 2: Luxury typography - CHOTI HEADING YAHAN HAI */}
+            {/* OPTION 2: Luxury typography */}
             <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.1] tracking-tight mb-8">
               <span className="text-[#F5F5F5]">INNOVATIVE</span><br />
               <span className="text-[#F5F5F5]">EDUCATION</span><br />
@@ -266,7 +266,7 @@ const PremiumHeroSection = () => {
   );
 };
 
-// OPTION 6: Premium Card Design
+// OPTION 6: Premium Card Design - FIXED: All cards link to /programs
 const PremiumProgramCard = ({ program, index }: { program: typeof PROGRAMS[0], index: number }) => {
   return (
     <motion.div 
@@ -322,9 +322,9 @@ const PremiumProgramCard = ({ program, index }: { program: typeof PROGRAMS[0], i
           ))}
         </div>
 
-        {/* OPTION 8: Gold ripple effect on hover */}
+        {/* OPTION 8: Gold ripple effect on hover - FIXED: Links to /programs */}
         <Link 
-          to={program.link}
+          to="/programs" // ✅ Changed from program.link to "/programs"
           className="relative inline-flex items-center gap-2 text-[#F5F5F5] group-hover:text-[#B8860B] transition-colors font-paragraph text-sm font-bold overflow-hidden"
         >
           <span>Initialize Program</span>
