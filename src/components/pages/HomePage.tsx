@@ -26,21 +26,21 @@ const PROGRAMS = [
     id: 'engineering',
     title: 'Engineering Excellence',
     description: 'Comprehensive preparation for aspiring engineers with mentorship from professionals at top tech companies and institutions.',
-    link: '/programs', // ✅ Changed to /programs
+    link: '/programs',
     specs: ['JEE Main/Adv', 'Mentorship', 'Mock Tests']
   },
   {
     id: 'civil-services',
     title: 'Civil Services Leadership',
     description: 'Strategic guidance for IAS/IPS aspirants with insights from serving officers and successful candidates.',
-    link: '/programs', // ✅ Changed to /programs
+    link: '/programs',
     specs: ['UPSC Syllabus', 'Interview Prep', 'Ethics']
   },
   {
     id: 'medical',
     title: 'Medical Foundations',
     description: 'MBBS preparation with mentorship from practicing doctors and medical professionals from premier institutions.',
-    link: '/programs', // ✅ Changed to /programs
+    link: '/programs',
     specs: ['NEET Prep', 'Clinical Insights', 'Biology']
   }
 ];
@@ -196,17 +196,17 @@ const PremiumHeroSection = () => {
                   className="absolute inset-0 bg-[#F5F5F5] opacity-0 group-hover:opacity-20 transition-opacity"
                 />
                 <span className="relative z-10 flex items-center gap-2">
-                  {'{ Explore Programs }'} 
+                  {'Explore Programs'} 
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                 </span>
               </Link>
               
               <Link 
-                to="/partnerships#contact" 
+                to="/apply"  // ✅ FIXED: Now goes to application form
                 className="group px-8 py-4 border border-[#B8860B] text-[#B8860B] hover:bg-[#B8860B] hover:text-[#0A0A0A] transition-all duration-500 font-paragraph text-sm"
               >
                 <span className="flex items-center gap-2">
-                  {'=> Get Started'}
+                  {'Take a Step for your child'}
                   <Star className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </span>
               </Link>
@@ -322,9 +322,9 @@ const PremiumProgramCard = ({ program, index }: { program: typeof PROGRAMS[0], i
           ))}
         </div>
 
-        {/* OPTION 8: Gold ripple effect on hover - FIXED: Links to /programs */}
+        {/* OPTION 8: Gold ripple effect on hover */}
         <Link 
-          to="/programs" // ✅ Changed from program.link to "/programs"
+          to="/programs"
           className="relative inline-flex items-center gap-2 text-[#F5F5F5] group-hover:text-[#B8860B] transition-colors font-paragraph text-sm font-bold overflow-hidden"
         >
           <span>Initialize Program</span>

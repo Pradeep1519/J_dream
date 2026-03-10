@@ -177,10 +177,12 @@ export default function ApplicationPage() {
 
   const handleBack = () => {
     if (currentStep > 1) {
+      // ✅ Step 1 se bada hai to previous step par jao
       setCurrentStep(currentStep - 1);
       window.scrollTo(0, 0);
     } else {
-      navigate('/programs');
+      // ✅ Step 1 hai to home page par jao
+      navigate('/');
     }
   };
 
