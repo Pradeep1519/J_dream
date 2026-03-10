@@ -40,9 +40,9 @@ export default function PremiumHeader() {
 
   // Text color based on page and scroll
   const getTextColor = () => {
-    if (scrolled) return 'text-[#F5F5F5]'; // Dark background when scrolled
-    if (isHomePage) return 'text-[#F5F5F5]'; // Homepage has dark background
-    return 'text-[#0A0A0A]'; // Other pages have white background
+    if (scrolled) return 'text-[#F5F5F5]';
+    if (isHomePage) return 'text-[#F5F5F5]';
+    return 'text-[#0A0A0A]';
   };
 
   // Logo color based on page
@@ -56,7 +56,7 @@ export default function PremiumHeader() {
   const getBackgroundColor = () => {
     if (scrolled) return 'bg-[#0A0A0A] border-b border-[#B8860B]/30 backdrop-blur-lg';
     if (isHomePage) return 'bg-transparent';
-    return 'bg-white shadow-md'; // White background for other pages
+    return 'bg-white shadow-md';
   };
 
   // Mobile menu background
@@ -82,7 +82,7 @@ export default function PremiumHeader() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo - Color changes based on page */}
+          {/* Logo */}
           <Link to="/" className="relative group">
             <span className={`font-heading text-2xl font-black tracking-wider transition-colors duration-300 ${getLogoColor()}`}>
               {'{ Junior Dream }'}
@@ -109,10 +109,10 @@ export default function PremiumHeader() {
               </Link>
             ))}
             <Link
-              to="/partnerships#contact"
-              className={`px-6 py-3 border border-[#B8860B] text-[#B8860B] hover:bg-[#B8860B] hover:text-white transition-all duration-300 font-paragraph text-sm rounded-lg`}
+              to="/apply"  // ✅ Updated to new Application Page
+              className={`px-6 py-3 bg-[#B8860B] text-white hover:bg-[#D4AF37] transition-all duration-300 font-paragraph text-sm rounded-lg shadow-md hover:shadow-lg`}
             >
-              {'=> Contact'}
+              {'Apply Now'}
             </Link>
           </nav>
 
@@ -155,11 +155,11 @@ export default function PremiumHeader() {
                 </Link>
               ))}
               <Link
-                to="/partnerships#contact"
-                className="font-paragraph text-sm bg-[#B8860B] text-white px-6 py-3 hover:bg-[#D4AF37] transition-colors inline-block text-center rounded-lg mx-4 mt-2"
+                to="/apply"
+                className="font-paragraph text-sm bg-[#B8860B] text-white px-6 py-3 hover:bg-[#D4AF37] transition-colors inline-block text-center rounded-lg mx-4 mt-2 font-semibold"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                {'=> Contact'}
+                Apply Now
               </Link>
             </div>
           </motion.nav>

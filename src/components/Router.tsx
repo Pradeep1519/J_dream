@@ -7,6 +7,8 @@ import ProgramBatchDetail from './pages/ProgramBatchDetail';
 import MentorshipPage from './pages/MentorshipPage';
 import AboutPage from './pages/AboutPage';
 import PartnershipsPage from './pages/PartnershipsPage';
+import ApplicationPage from './pages/ApplicationPage';
+import ApplicationSuccess from './pages/ApplicationSuccess';
 
 // Simple Layout component
 function Layout() {
@@ -31,7 +33,10 @@ const router = createBrowserRouter([
       { path: "mentorship", element: <MentorshipPage /> },
       { path: "about", element: <AboutPage /> },
       { path: "partnerships", element: <PartnershipsPage /> },
-      { path: "*", element: <Navigate to="/" replace /> }
+      { path: "apply", element: <ApplicationPage /> },
+      { path: "application-success", element: <ApplicationSuccess /> },
+      { path: "*", element: <Navigate to="/" replace /> },
+      
     ],
   },
 ]);
